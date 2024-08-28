@@ -31,23 +31,19 @@ class paginate_base:
         else:
             start,end = 0,0
 
-        
         return start,end
     
         
     def get_balanced_indices(self,page):
         
-
         self.s1,self.e1 = self.get_indices(page,self.max_page1,self.ls1len)
         self.s2,self.e2 = self.get_indices(page,self.max_page2,self.ls2len)
 
         return self.balance( self.s1, self.e1, self.s2, self.e2, self.items,page)
 
     
-    # @staticmethod
     def balance(self,s1,e1,s2,e2,items,page):
 
-        
         e1s1diff = e1-s1
         e2s2diff = e2 -s2
         if page <= self.max_page_limit:
@@ -77,9 +73,6 @@ class paginate_base:
 
                     s1,e1 = s,e
      
-
-
-
         return s1,e1,s2,e2
     
     @staticmethod
@@ -88,12 +81,12 @@ class paginate_base:
         maxpage = llen//items if llen % items == 0  else (llen//items)+1
         return maxpage
 
-l1 = list(range(35))
-l2 = list(range(100))
-a = paginate_base(5,l1,l2)
+# l1 = list(range(35))
+# l2 = list(range(100))
+# a = paginate_base(5,l1,l2)
 
-print(a.get_balanced_indices(15))
-print(a.max_page_limit)
-print(a.add_Factor)
+# print(a.get_balanced_indices(15))
+# print(a.max_page_limit)
+# print(a.add_Factor)
 
     
