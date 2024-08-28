@@ -64,9 +64,22 @@ class paginate_base:
             emult = smult+2
             s,e = (smult*self.items)+self.add_Factor,(emult*self.items)+self.add_Factor
             if e1s1diff == 0 :
-                s2,e2 = s,e
+                
+                if s > self.ls2len and e > self.ls2len:
+                    e2 = 0
+                    s2 = 0
+                else:
+                    s2,e2 = s,e
+
             elif e2s2diff == 0 :
-                s1,e1 = s,e
+                if s > self.ls1len and e > self.ls1len:
+                    e1 = 0 
+                    s1  = 0
+                else:
+
+                    s1,e1 = s,e
+     
+
 
 
         return s1,e1,s2,e2
@@ -77,10 +90,10 @@ class paginate_base:
         maxpage = llen//items if llen % items == 0  else (llen//items)+1
         return maxpage
 
-# a = paginate_base(4,l2,l1)
+a = paginate_base(5,l1,l2)
 
-# print(a.get_balanced_indices(11))
-# print('sdsdsd',a.max_page_limit)
-# print(a.add_Factor)
+print(a.get_balanced_indices(15))
+print(a.max_page_limit)
+print(a.add_Factor)
 
     
