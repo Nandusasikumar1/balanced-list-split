@@ -1,6 +1,4 @@
 
-l1 = list(range(35))
-l2 = list(range(100))
 
 class paginate_base:
 
@@ -66,15 +64,15 @@ class paginate_base:
             if e1s1diff == 0 :
                 
                 if s > self.ls2len and e > self.ls2len:
-                    e2 = 0
-                    s2 = 0
+                    s2,e2 = 0,0
+                 
                 else:
                     s2,e2 = s,e
 
             elif e2s2diff == 0 :
                 if s > self.ls1len and e > self.ls1len:
-                    e1 = 0 
-                    s1  = 0
+                    s1,e1 = 0,0 
+                    
                 else:
 
                     s1,e1 = s,e
@@ -90,6 +88,8 @@ class paginate_base:
         maxpage = llen//items if llen % items == 0  else (llen//items)+1
         return maxpage
 
+l1 = list(range(35))
+l2 = list(range(100))
 a = paginate_base(5,l1,l2)
 
 print(a.get_balanced_indices(15))
