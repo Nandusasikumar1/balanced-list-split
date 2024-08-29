@@ -1,10 +1,14 @@
 
+import time
+
 
 class paginate_base:
 
     def __init__(self,items,ls1,ls2):
         # page = page
         self.items = items
+        if self.items < 1:
+            raise Exception('page shoud be greater than or equal to one')
         self.ls1 = ls1
         self.ls2 = ls2
         self.ls1len = self.ls1.__len__()
@@ -21,6 +25,7 @@ class paginate_base:
     def get_indices(self,page,maxpage,llen):
 
         if 1 <= page < maxpage:
+
             start = (page-1)*self.items
             end = page * self.items
             
@@ -41,36 +46,30 @@ class paginate_base:
 
         return self.balance( self.s1, self.e1, self.s2, self.e2, self.items,page)
 
-    
     def balance(self,s1,e1,s2,e2,items,page):
 
         e1s1diff = e1-s1
         e2s2diff = e2 -s2
         if page <= self.max_page_limit:
-          
             e1 = e1+items - e2s2diff
             e2 = e2+items - e1s1diff 
-
             
         else:
   
             smult = self.max_page_limit+((page-self.max_page_limit-1)*2)
             emult = smult+2
             s,e = (smult*self.items)+self.add_Factor,(emult*self.items)+self.add_Factor
+
             if e1s1diff == 0 :
-                
-                if s > self.ls2len and e > self.ls2len:
+                if s >= self.ls2len and e >= self.ls2len:
                     s2,e2 = 0,0
-                 
                 else:
                     s2,e2 = s,e
 
             elif e2s2diff == 0 :
-                if s > self.ls1len and e > self.ls1len:
-                    s1,e1 = 0,0 
-                    
+                if s >= self.ls1len and e >= self.ls1len:
+                    s1,e1 = 0,0       
                 else:
-
                     s1,e1 = s,e
      
         return s1,e1,s2,e2
@@ -78,14 +77,22 @@ class paginate_base:
     @staticmethod
     def max_page(items,llen):
 
+
         maxpage = llen//items if llen % items == 0  else (llen//items)+1
+
         return maxpage
 
-# l1 = list(range(35))
-# l2 = list(range(100))
-# a = paginate_base(5,l1,l2)
+l1 = list(range(1))
+l2 = list(range(1))
 
-# print(a.get_balanced_indices(15))
+start = time.time()
+a = paginate_base(1,l1,l2)
+
+print(a.get_balanced_indices(1))
+
+end  = time.time()
+
+print(a.__dict__)
 # print(a.max_page_limit)
 # print(a.add_Factor)
 
