@@ -47,23 +47,26 @@ class paginate_base:
 
     def balance(self,s1,e1,s2,e2,items,page):
 
-        e1s1diff = e1-s1
-        e2s2diff = e2 -s2
+        e1s1diff = e1 - s1
+        e2s2diff = e2 - s2
         if page <= self.max_page_limit:
 
             e1 = e1+items - e2s2diff
             e2 = e2+items - e1s1diff 
         else:
-            mul_factor = page - self.max_page_limit if self.max_page_limit % 2 == 0 else page - self.max_page_limit -1
+            mul_factor = page - self.max_page_limit -1
+            l1index = self.get_indices(page,self.max_page1,self.ls1len)
+            l2index = self.get_indices(page,self.max_page2,self.ls2len)
 
-  
-            if self.get_indices(page,self.max_page1,self.ls1len) == (0,0) :
-                s2 = self.maxe2 + self.total_items*mul_factor
-                e2 = s2 + self.total_items
+            if  l1index == (0,0) and l2index != (0,0):
 
-            elif self.get_indices(page,self.max_page2,self.ls2len) == (0,0):
-                s1 = self.maxe1 + self.total_items*mul_factor
-                e1 = s1 + self.total_items
+                s2 = self.maxe2+self.total_items*mul_factor
+                e2 = s2+self.total_items
+
+            elif l2index == (0,0) and l1index != (0,0):
+             
+                s1 = self.maxe1+self.total_items*mul_factor
+                e1 = s1+self.total_items
 
      
         return s1,e1,s2,e2
@@ -76,12 +79,12 @@ class paginate_base:
 
         return maxpage
 
-l1 = list(range(80))
-l2 = list(range(1000))
+l1 = list(range(8))
+l2 = list(range(8))
 
-# start = time.time()
-a = paginate_base(74,l2,l1)
-# end = time.time()
+start = time.time()
+a = paginate_base(8,l1,l2)
+end = time.time()
 
 # print((end-start))
 
