@@ -95,7 +95,7 @@ def search(d,key):
                 endcheck.append(True)
         if temp:
             d,temp = temp,{}
-        if all(endcheck) and key not in temp:
+        if all(endcheck) and key not in d:
             return 'key not found'
         
         endcheck = []
