@@ -104,4 +104,25 @@ print(search(c,7))
                 
             
         
+def search(d,key):
+    temp = {}
+    endcheck = []
+    stop = False
+    while not stop:
+        if key in d:
+            return {key:d[key]}
+        for k,v in d.items():
+            if isinstance(v,dict):
+                temp |= v
+                endcheck.append(False)
+            else:
+                endcheck.append(True)
+        if temp:
+            d,temp = temp,{}
+        stop  = all(endcheck) and key not in d
+        
+        endcheck = []
+    else:
+        return 'key not found'
 
+print(search(c,49))
